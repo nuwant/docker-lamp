@@ -60,11 +60,11 @@ $osInfo = getOSInformation();
 <body>
     <div class="container">
         <header>
-            <h2>Welcome to <a href="https://github.com/TODO" target="_blank">Docker-Lamp for Drupal</a> a.k.a iwsp/lamp</h2>
+            <h2>Welcome to <a href="https://github.com/nuwant/docker-lamp" target="_blank">Docker-Lamp for Drupal</a> a.k.a iwsp/lamp</h2>
         </header>
         <article>
             <p>
-                For documentation, <a href="https://github.com/TODO" target="_blank">click here</a>.
+                For documentation, <a href="https://github.com/nuwant/docker-lamp" target="_blank">click here</a>.
                 Source : <a href="https://github.com/mattrayner/docker-lamp" target="_blank">click here</a>.
             </p>
         </article>
