@@ -29,12 +29,23 @@ Drush : 10.5.0
 - `DOCKER_USER_ID=$(id -u)` for letting Vagrant use your host user ID for mounted folders
 - `DOCKER_USER_GID=$(id -g)` for letting Vagrant use your host user GID for mounted folders
 
-## Examples
+
+
 
 
 # Docker-compose
 Not necessary, but usefull if you want to use with other containers.
-### Docker-compose example
+
+## Use with docker-compose
+
+Create a docker-compose.yml file, add the following content and start with
+````docker-compose up -d```` (Wait few seconds to to start web servers)
+
+- Start : ````docker-compose up -d````
+- Stop : ````docker-compose ````
+- Shell access ````docker-compose exec web bash````
+### Docker-compose file example
+
 ````
 version: '3'
 services:
@@ -57,12 +68,17 @@ services:
       - "443:443"
       - "3306:3306"
 ````
+##Install drupal 9 via composer/drush
 ````
-#Install drupal 9 via composer/drush
+docker-compose exec web bash
 cd app
 composer create-project drupal/recommended-project:^9 web
 cd web
 drush site-install standard --db-url='mysql://drupal:drupal@localhost/drupal' --site-name=Drupal --account-name=admin --account-pass=admin  --notify=0 --account-mail=name@mail.com -y
 ````
+
+# Known issues
+PB 1 : Web server does not start immediatly. Therefor, waite few second and retry.
+
 
 [Gitlab : nuwant/docker-lamp](https://github.com/nuwant/docker-lamp)
