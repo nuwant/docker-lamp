@@ -1,0 +1,10 @@
+web1804-php8:
+  build: .
+  dockerfile: ./Dockerfile
+  environment:
+    - MYSQL_ADMIN_PASS=password
+  ports:
+    - "3000:80"
+    - "3443:443"
+    - "3001:3306"
+
