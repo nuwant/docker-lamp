@@ -1,3 +1,5 @@
+temp: build up run-tests
+
 test: build up run-tests clean
 
 test-no-cache: build-no-cache up run-tests clean

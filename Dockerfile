@@ -1,6 +1,6 @@
 FROM phusion/baseimage:0.11
 MAINTAINER NW <nobody@no.mail>
-ENV REFRESHED_AT 2021-06-07
+ENV REFRESHED_AT 2021-09-30
 
 # based on dgraziotin/lamp and mattrayner/lamp
 # MAINTAINER Matthew Rayner <hello@rayner.io>
@@ -66,9 +66,21 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
     php -r "unlink('composer-setup.php');" && \
     mv composer.phar /usr/local/bin/composer
 
+# Add composer bins to bashrc.
+RUN	echo 'export PATH="/root/.composer/vendor/bin:$PATH"' >> /root/.bashrc
+
 # Add Drush
-RUN composer global require drush/drush:10.x && \
-	echo 'export PATH="/root/.composer/vendor/bin:$PATH"' >> /root/.bashrc
+RUN composer global require drush/drush:10.x
+
+# Add composer bins ans reload.
+RUN	echo 'export PATH="/root/.composer/vendor/bin:$PATH"' >> /root/.bashrc && \
+	. /root/.bashrc
+
+# Add Drupal coder (phpcs/phpcbf)
+RUN composer global require drupal/coder:8.3.x && \
+	. /root/.bashrc && \
+	phpcs --config-set installed_paths /root/.composer/vendor/drupal/coder/coder_sniffer
+
 
 ENV MYSQL_PASS:-$(pwgen -s 12 1)
 # config to enable .htaccess
@@ -79,7 +91,7 @@ RUN a2enmod rewrite
 RUN a2enmod ssl
 RUN apt-get install ssl-cert
 RUN make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/ssl/private/localhost.pem
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:1024 -out /etc/apache2/server.crt -keyout /etc/apache2/server.key -subj "/C=AU/ST=Lima/L=Lima/O=LocalInc. /OU=IT Department/CN=localhost"
+RUN openssl req -x509 -nodes -days 36524 -newkey rsa:1024 -out /etc/apache2/server.crt -keyout /etc/apache2/server.key -subj "/C=AU/ST=Lima/L=Lima/O=LocalInc. /OU=IT Department/CN=localhost"
 RUN chmod o-rw /etc/apache2/server.key
 # Configure
 ADD supporting_files/apache_ssl /etc/apache2/sites-available/ssl.conf
@@ -102,7 +114,7 @@ RUN { \
 #Environment variables to configure php
 ENV PHP_UPLOAD_MAX_FILESIZE 10M
 ENV PHP_POST_MAX_SIZE 10M
-ENV PHP_VERSION 7.4
+ENV PHP_VERSION 8.0
 
 # Add volumes for the app and MySql
 VOLUME  ["/var/lib/mysql", "/app" ]

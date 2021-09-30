@@ -74,7 +74,8 @@ OS: <?php echo $osInfo['pretty_name']; ?><br/>
 Apache: <?php echo apache_get_version(); ?><br/>
 MySQL Version: <?php echo $db->getAttribute( PDO::ATTR_SERVER_VERSION ); ?><br/>
 PHP Version: <?php echo phpversion(); ?><br/>
-phpMyAdmin Version: <?php echo getenv('PHPMYADMIN_VERSION'); ?>
+phpMyAdmin Version: <?php echo getenv('PHPMYADMIN_VERSION'); ?><br/>
+With Drush, PhpCS and PhpCBF
             </pre>
         </section>
     </div>

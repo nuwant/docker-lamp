@@ -15,6 +15,8 @@ Conposer : 2.0.13
 
 Drush : 10.5.0
 
+Coder Sniffer : drupal/coder:8.3.13
+
 ##Environment variables
 
 - `APACHE_ROOT` tells Apache which folder within the app volume so serve as the web root.
@@ -42,7 +44,7 @@ Create a docker-compose.yml file, add the following content and start with
 ````docker-compose up -d```` (Wait few seconds to to start web servers)
 
 - Start : ````docker-compose up -d````
-- Stop : ````docker-compose ````
+- Stop : ````docker-compose stop````
 - Shell access ````docker-compose exec web bash````
 ### Docker-compose file example
 
@@ -72,13 +74,15 @@ services:
 ````
 docker-compose exec web bash
 cd app
-composer create-project drupal/recommended-project:^9 web
+composer create-project drupal/recommended-project:^9 .
 cd web
+#Just for example, chaage password and mail address.
 drush site-install standard --db-url='mysql://drupal:drupal@localhost/drupal' --site-name=Drupal --account-name=admin --account-pass=admin  --notify=0 --account-mail=name@mail.com -y
 ````
 
-# Known issues
-PB 1 : Web server does not start immediatly. Therefor, waite few second and retry.
 
+## Known issues
+PB 1 : Web server does not start immediatly. Therefor, waite few second or 1/2 minutes and retry.
 
+## Links
 [Gitlab : nuwant/docker-lamp](https://github.com/nuwant/docker-lamp)
